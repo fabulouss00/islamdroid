@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, AndroidAthan</string>
+    <string name="AppName">Athan Application for Android</string>
+<string name="HandlePrayerTime">HANDLE_PRAYER_TIME</string>
+<string name="CalculatePrayerTimes">CALCULATE_PRAYER_TIMES</string>
+<color name="PreferencesTextViewLabelTextColor">#FF3030FF</color>
+<string name="OK">Ok</string>
+<string name="CANCEL">Cancel</string>
+
+
+<item name="Bismillah" type="raw">assets/sound/Bismillah.mp3</item>
+<item name="AthanAlaqsa" type="raw">assets/sound/Alaqsa.mp3</item>
+<item name="Dua" type="raw">assets/sound/dua.mp3</item>
+<item name="AthanEgypt" type="raw">assets/sound/Egypt.mp3</item>
+<item type="raw" name="AthanMadina">assets/sound/Madina.mp3</item>
+<item name="AthanMakkah" type="raw">assets/sound/Makkah.mp3</item>
+<item name="AthanFajr" type="raw">assets/sound/SheikhSubhanAllah_Fajr.mp3</item>
+
+
+<string name="PreferenceAthanTitle">Athan</string>
+
+
+
+
+
+<string name="PreferenceScreenAthanKey">PreferenceScreenAthan</string>
+<string name="PreferenceScreeAthanTitle">Athans</string>
+<string name="PreferenceScreenAthanSummary">Choose Athan</string>
+<string name="PreferenceDuaKey">Dua</string>
+<string name="PreferenceDuaTitle">Dua after Athan</string>
+<string-array name="AthanNameEntries">
+<item>Makkah</item>
+<item>Madina</item>
+<item>Al-Aqsa</item>
+<item>Egypt</item>
+<item>No Athan</item>
+</string-array>
+<string-array name="AthanNameEntryValues"><item>Makkah</item><item>Madina</item><item>Al-Aqsa</item><item>Egypt</item><item>No Athan</item></string-array>
+<string name="AthanListPreferenceKey">AthanListPreference</string>
+<string name="AthanListPreferenceTitle">Athans</string>
+<string name="AthanListPreferenceSummary">Click to select an Athan</string>
+<string name="PreferenceGroupMethodKey">PreferenceGroupMethod</string>
+<string name="PreferenceGroupMethodTitle">Methods</string>
+<string-array name="CalculationMethodEntries"><item>Jafari</item>
+<item>UIS, Karachi</item>
+<item>ISNA</item>
+<item>Muslim World League</item>
+<item>Makkah</item>
+<item>Egypt</item>
+<item>Tehran</item>
+</string-array>
+<string-array name="CalculationMethodEntryValues"><item>Jafari</item><item>UIS, Karachi</item><item>ISNA</item><item>Muslim World League</item><item>Makkah</item><item>Egypt</item><item>Tehran</item></string-array>
+<string name="CalculationMethodKey">CalculationMethod</string>
+<string name="CalculationMethodTitle">Calculation Methods</string>
+<string name="CalculationMethodSummary">Click to select calculation method</string>
+<string name="JuristicMethodKey">JuristicMethod</string>
+<string name="JuristicMethodTitle">Juristic Methods</string>
+<string name="JuristicMethodSummary">Click to select juristic method</string>
+<string-array name="JuristicMethodEntries"><item>Shafii</item>
+<item>Hanafi</item>
+</string-array>
+<string name="HigherLatitudeAdjustmentKey">HigherLatitudeAdjustment</string>
+<string name="HigherLatitudeAdjustmentTitle">Higher Latitude Adjustment</string>
+<string name="HigherLatitudeAdjustmentSummary">Click to select higher latitude adjustment method</string>
+<string-array name="HigherLatitudeAdjustmentMethodEntries"><item>Mid Night</item>
+<item>One Seventh</item>
+<item>Angle Based</item>
+</string-array>
+
+<string name="BismillahPreferenceKey">Bismillah</string>
+<string name="BismillahPreferenceTitle">Play Bismillah at start</string>
+<string name="DefaultLocationPreferenceKey">DefaultLocationPreference</string>
+<string name="DefaultLocationPreferenceTitle">Default Location</string>
+<string name="DefaultLocationPreferenceSummary">Default location information to be use if location service unavailable</string>
+<string name="DefaultLocationPreferenceCityKey">DefaultLocationPreferenceCity</string>
+<string name="DefaultLocationPreferenceCityTitle">City</string>
+<string name="DefaultLocationPreferenceCountryKey">DefaultLocationPreferenceCountry</string>
+<string name="DefaultLocationPreferenceCountryTitle">Country</string>
+<string name="PrayerTimesExtraTag">PrayerTimesExtraTag</string>
+<string name="AthanNotificationTitle">Athan Notification</string>
+<string name="AthanNotificationKey">AthanNotificationKey</string>
+<string name="AthanNotificationSummary">Click to select prayer time notification method</string>
+<string-array name="AthanNotificationEntries"><item>Athan</item>
+<item>Vibration with Alert</item>
+</string-array>
+<string name="AthanNotification">It is prayer time</string>
+</resources>

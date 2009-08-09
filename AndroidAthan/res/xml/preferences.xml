@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  
+	xmlns:android="http://schemas.android.com/apk/res/android">  
+      
+      
+<CheckBoxPreference android:key="@string/BismillahPreferenceKey" android:title="@string/BismillahPreferenceTitle"></CheckBoxPreference><PreferenceCategory android:title="@string/PreferenceAthanTitle"><ListPreference android:entries="@array/AthanNameEntries" android:entryValues="@array/AthanNameEntryValues" android:summary="@string/AthanListPreferenceSummary" android:key="@string/AthanListPreferenceKey" android:title="@string/AthanListPreferenceTitle"></ListPreference><CheckBoxPreference android:title="@string/PreferenceDuaTitle" android:key="@string/PreferenceDuaKey"></CheckBoxPreference>
+
+
+
+
+
+
+<ListPreference android:key="@string/AthanNotificationKey" android:title="@string/AthanNotificationTitle" android:entryValues="@array/AthanNotificationEntries" android:entries="@array/AthanNotificationEntries"></ListPreference>
+</PreferenceCategory>
+
+<PreferenceCategory android:key="@string/PreferenceGroupMethodKey" android:title="@string/PreferenceGroupMethodTitle"><ListPreference android:entryValues="@array/CalculationMethodEntryValues" android:entries="@array/CalculationMethodEntries" android:key="@string/CalculationMethodKey" android:title="@string/CalculationMethodTitle" android:summary="@string/CalculationMethodSummary"></ListPreference>
+<ListPreference android:key="@string/JuristicMethodKey" android:title="@string/JuristicMethodTitle" android:summary="@string/JuristicMethodSummary" android:entryValues="@array/JuristicMethodEntries" android:entries="@array/JuristicMethodEntries"></ListPreference>
+<ListPreference android:key="@string/HigherLatitudeAdjustmentKey" android:entryValues="@array/HigherLatitudeAdjustmentMethodEntries" android:title="@string/HigherLatitudeAdjustmentTitle" android:summary="@string/HigherLatitudeAdjustmentSummary" android:entries="@array/HigherLatitudeAdjustmentMethodEntries"></ListPreference>
+</PreferenceCategory>
+
+<PreferenceScreen android:key="@string/DefaultLocationPreferenceKey" android:summary="@string/DefaultLocationPreferenceSummary" android:title="@string/DefaultLocationPreferenceTitle"><EditTextPreference android:title="@string/DefaultLocationPreferenceCityTitle" android:key="@string/DefaultLocationPreferenceCityKey"></EditTextPreference>
+<EditTextPreference android:title="@string/DefaultLocationPreferenceCountryTitle" android:key="@string/DefaultLocationPreferenceCountryKey"></EditTextPreference>
+</PreferenceScreen>
+</PreferenceScreen>
