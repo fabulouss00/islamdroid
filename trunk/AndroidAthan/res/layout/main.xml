@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<TextView android:id="@+id/tview"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/Hello"/>
+	<Button android:id="@+id/BTNViewPrayerTimes"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Prayer Times"/>
+	<Button android:id="@+id/BTNNextPrayerTime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Next Prayer Time"/>
+	<Button android:id="@+id/BTNViewPrayerTimeOnDate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Prayer Times On Date"/>
+	<Button android:id="@+id/BTNQiblahAngle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Qiblah Angle"/>
+	<Button android:id="@+id/BTNEditPreferences"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Edit Preferences"/>
+</LinearLayout>
