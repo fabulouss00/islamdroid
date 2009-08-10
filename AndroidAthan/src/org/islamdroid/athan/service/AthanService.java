@@ -36,7 +36,8 @@ import org.islamdroid.athan.service.IAthanService;
 
 public class AthanService extends Service implements ILocationChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 	
-	private static final int ATHAN_NOTIFY_ID = 0;
+	public static final String PrayerNotificationMessageKey = "PrayerNotificationMessage";
+	private final int ATHAN_NOTIFY_ID = 0xF0000000;
 	// Member attributes
 	private AthanLocationManager m_AthanLocationManager;
 	private boolean m_bLocationSet;
@@ -50,9 +51,11 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 	private Intent m_HandlePrayerTimeIntent;
 	private ChangeHandler m_ChangeHandler;
 	private String m_sPrayerNameExtraTag;
+	private String m_sPrayerTimeExtraTag;
 	
 	public AthanService() {
 		m_sPrayerNameExtraTag = "PrayerName";
+		m_sPrayerTimeExtraTag = "PrayerTime";
 	}
 
 	private final IAthanService.Stub m_Binder = new IAthanService.Stub() {
@@ -113,7 +116,7 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 		m_bLocationSet = true;
 		reset();
 		//playAthan();
-		//vibrationAlert("Maghrib");
+		notifyAthan("Maghrib", Calendar.getInstance().getTimeInMillis());
 	}
 
     @Override
@@ -186,6 +189,7 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 		else {
 			//sText += pt.toString();
 			m_HandlePrayerTimeIntent.putExtra(m_sPrayerNameExtraTag, pt.getPrayerName());
+			m_HandlePrayerTimeIntent.putExtra(m_sPrayerTimeExtraTag, pt.getPrayerTime().getTimeInMillis());
 			m_PendingIntent = PendingIntent.getBroadcast(this, 0, m_HandlePrayerTimeIntent, PendingIntent.FLAG_ONE_SHOT);
 			sText += m_PendingIntent;
 			m_AlarmManager.set(AlarmManager.RTC_WAKEUP, pt.getPrayerTime().getTimeInMillis(), m_PendingIntent);
@@ -203,23 +207,26 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 				calculatePrayerTimes();
 			}
 			else if (getString(R.string.HandlePrayerTime) == sAction) {
-				handlePrayerTime(intent.getStringExtra(m_sPrayerNameExtraTag));
+				handlePrayerTime(intent.getStringExtra(m_sPrayerNameExtraTag),
+						intent.getLongExtra(m_sPrayerTimeExtraTag, 0));
 			}
 			Toast.makeText(context, intent.getAction(), Toast.LENGTH_LONG).show(); 
 		}
 	}
 	
-	private void handlePrayerTime(String sPrayerName) {
+	private void handlePrayerTime(String sPrayerName, long time) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		Resources res = getResources();
 		if (sp.getBoolean(res.getStringArray(R.array.AthanNotificationEntries)[0], true))
 			playAthan();
 		else if (sp.getBoolean(res.getStringArray(R.array.AthanNotificationEntries)[1], false))
-			vibrationAlert(sPrayerName);
+			notifyAthan(sPrayerName, time);
 	}
 	
-	private void vibrationAlert(String sPrayerName) {
+	private void notifyAthan(String sPrayerName, long time) {
 		Log.d(CONSTANTS.LOG_TAG, "I am in vibrationAlert");
+		NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		nm.cancel(ATHAN_NOTIFY_ID);
 		int icon = R.drawable.icon;
 		CharSequence tickerText = "Prayer time for " + sPrayerName;
 		long when = System.currentTimeMillis() + 2000;
@@ -229,18 +236,24 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 		CharSequence contentTitle = "Athan notification";
 		//CharSequence contentText = "Prayer time for " + sPrayer;
 		Intent notificationIntent = new Intent(this, NotificationActivity.class);
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(time);
+		String sNotificationMessage = sPrayerName + " at " + c.get(Calendar.HOUR_OF_DAY)
+			+ ':' + c.get(Calendar.MINUTE) + ':' + c.get(Calendar.SECOND);
+		notificationIntent.putExtra(PrayerNotificationMessageKey, sNotificationMessage);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 		notification.setLatestEventInfo(context, contentTitle, tickerText, contentIntent);
+		notification.defaults |= Notification.FLAG_AUTO_CANCEL;
+		notification.defaults |= Notification.DEFAULT_SOUND;
 		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		long[] vibrate = {0,100,200,300};
+		long [] vibrate = { 0, 100, 200, 300 };
 		notification.vibrate = vibrate;
 		notification.defaults |= Notification.DEFAULT_LIGHTS;
 		notification.ledARGB = 0xff00ff00;
 		notification.ledOnMS = 300;
 		notification.ledOffMS = 1000;
 		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-		NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		nm.notify(ATHAN_NOTIFY_ID, notification);
 	}
 	
