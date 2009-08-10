@@ -1,6 +1,7 @@
 package org.islamdroid.athan;
 
 import org.islamdroid.athan.R;
+import org.islamdroid.athan.service.AthanService;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,9 +14,10 @@ public class NotificationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        m_TextView = (TextView) findViewById(R.id.tview);
-        
+        setContentView(R.layout.notification_activity_layout);
+        String sPrayerNotificationMessage = "Received: " + getIntent().getStringExtra(AthanService.PrayerNotificationMessageKey);
+        m_TextView = (TextView) findViewById(R.id.nttview);
+        m_TextView.setText(sPrayerNotificationMessage);
 	}
 
 }
