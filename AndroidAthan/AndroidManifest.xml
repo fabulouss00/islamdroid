@@ -18,7 +18,8 @@
                   android:label="@string/AppName">
         </activity>
     	<activity android:name=".NotificationActivity"
-                  android:label="@string/AppName">
+                  android:label="@string/AppName"
+                  android:launchMode="singleTop">
         </activity>
     	<service android:name=".service.AthanService">
     	</service>
