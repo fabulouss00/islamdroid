@@ -116,7 +116,7 @@ public class AthanService extends Service implements ILocationChangeListener, Sh
 		m_bLocationSet = true;
 		reset();
 		//playAthan();
-		notifyAthan("Maghrib", Calendar.getInstance().getTimeInMillis());
+		//notifyAthan("Maghrib", Calendar.getInstance().getTimeInMillis());
 	}
 
     @Override
