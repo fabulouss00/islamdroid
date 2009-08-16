@@ -1,5 +1,6 @@
 package org.islamdroid.athan.service;
 
+import org.islamdroid.athan.R;
 import org.islamdroid.athan.util.CONSTANTS;
 
 import android.app.Service;
@@ -12,60 +13,65 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.islamdroid.athan.R;
-
 public class AthanPlaybackService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
 		super.onConfigurationChanged(newConfig);
 	}
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		setForeground(true);
 	}
 
 	private void playAthan() {
-		Log.d(CONSTANTS.LOG_TAG, "Inside AthanPlaybackService playAthan");
 		final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		Resources res = getResources();
-		if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntryValues)[4], false))
+		if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntries)[4], false))
 	    	return;
 		MediaPlayer mp = null;
-		if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntryValues)[0], false))
+		if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntries)[0], false)) {
+			Log.d(CONSTANTS.LOG_TAG, "Makkah");
 	    	mp = MediaPlayer.create(this, R.raw.AthanMakkah);
-		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntryValues)[1], false))
+		}
+		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntries)[1], false)) {
+			Log.d(CONSTANTS.LOG_TAG, "Madina");
 	    	mp = MediaPlayer.create(this, R.raw.AthanMadina);
-		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntryValues)[2], false))
+		}
+		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntries)[2], false)) {
+			Log.d(CONSTANTS.LOG_TAG, "Al-Aqsa");
 	    	mp = MediaPlayer.create(this, R.raw.AthanAlaqsa);
-		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntryValues)[3], false))
+		}
+		else if (sp.getBoolean(res.getStringArray(R.array.AthanNameEntries)[3], false)) {
+			Log.d(CONSTANTS.LOG_TAG, "Egypt");
 	    	mp = MediaPlayer.create(this, R.raw.AthanEgypt);
+		}
+		else
+			mp = MediaPlayer.create(this, R.raw.AthanMakkah);
     	if (null != mp) {
     		try {
-    			Log.d(CONSTANTS.LOG_TAG, "Playing athan started");
     			mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
     					public void onCompletion(MediaPlayer mp) {
-    		    			Log.d(CONSTANTS.LOG_TAG, "Playing athan finished");
     						if (sp.getBoolean(getString(R.string.PreferenceDuaKey), true)) {
-        		    			Log.d(CONSTANTS.LOG_TAG, "Will play Dua");
-								mp = null;
-								mp = MediaPlayer.create(AthanPlaybackService.this, R.raw.Dua);
-								mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-    			    					public void onCompletion(MediaPlayer mp) {
-    			    						stopSelf();
-    			    					}
-									}
-								);
+        		    			try {
+    								mp = null;
+    								mp = MediaPlayer.create(AthanPlaybackService.this, R.raw.Dua);
+									mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+					    					public void onCompletion(MediaPlayer mp) {
+					    						stopSelf();
+					    					}
+										}
+									);
+									mp.start();
+        		    			} catch (Exception e) {
+        		    			}
     						}
     						else
     							stopSelf();
@@ -75,8 +81,8 @@ public class AthanPlaybackService extends Service {
     			mp.start();
     		} catch (IllegalStateException ise) {
     			Log.e(CONSTANTS.LOG_TAG, ise.getMessage());
-    		//} catch (IOException ioe) {
-    			//Log.e(CONSTANTS.LOG_TAG, ioe.getMessage());
+    		} catch (Exception e) {
+    			Log.e(CONSTANTS.LOG_TAG, e.getMessage());
     		}
     	}
 	}
