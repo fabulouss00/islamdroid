@@ -2,6 +2,10 @@ package org.islamdroid.athan.prayertimes;
 
 import java.util.Calendar;
 
+import org.islamdroid.athan.util.CONSTANTS;
+
+import android.util.Log;
+
 public class PrayerTimeCalculator {
 	// Calculation Methods
 	public static final int JAFARI = 0;
@@ -77,8 +81,7 @@ public class PrayerTimeCalculator {
 
 	private PrayerTimes getPrayerTimes(int year, int month, int day, double dLatitude, double dLongitude, int iTimeZone)
 	{
-		System.out.println("Got time zone: " + iTimeZone);
-		iTimeZone = -5;
+		Log.d(CONSTANTS.LOG_TAG, "Got time zone: " + iTimeZone);
 		m_dLatitude = dLatitude;
 		m_dLongitude = dLongitude; 
 		m_iTimeZone = iTimeZone; 
